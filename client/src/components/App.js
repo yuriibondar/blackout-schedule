@@ -5,6 +5,16 @@ import './App.css';
 function App() {
   const [schedule, fetchSchedule] = useSchedule(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [apiData, setApiData] = useState({});
+  useEffect(() => {
+    fetch("/api").then(
+      response => response.json()
+    ).then(
+      data => {
+        setApiData(data)
+      }
+    )
+  }, [])
 
   // useEffect(() => {
   //   setSelectedVideo(videos[0]);
