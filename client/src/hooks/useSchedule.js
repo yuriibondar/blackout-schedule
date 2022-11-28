@@ -9,16 +9,17 @@ const useSchedule = (defaultAddress) => {
     }, [defaultAddress]);
   
     const fetchSchedule = async (address) => {
+      console.log("post adress: ", address)
       const result = await voe.post("/", address, {
         headers: {
-            "accept": "application/json, text/javascript, */*; q=0.01",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Content-Type": "application/x-www-form-urlencoded"
         },
         params: {
             "_wrapper_format": "drupal_ajax"
         }
       });
-      console.log(result);
+      console.log("result - ", result);
       setSchedule(result.data[3].data);
     };
   
