@@ -14,14 +14,24 @@ body {
   display: none;
 }
 
+.site-main-container {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
 .custom-fields-wrapper {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  /* margin-top: 25px;
+  margin-bottom: 25px; */
+  margin: 25px -5px;
+}
+.field-container {
+  width: 50%;
+  padding: 0 5px;
 }
 input[type="text"] {
-  width: 50%;
+  width: 100%;
   height: 3.75rem;
   border: 1px solid #CFDBE2;
   background: #fff;
@@ -36,7 +46,7 @@ input[type="text"] {
   border-radius: 0;
   line-height: 1.25;
   min-width: 0;
-
+  /* margin: 0 5px; */
 }
 .disconnection-detailed-table-container {
   grid-template-rows: max-content repeat(24,30px);
