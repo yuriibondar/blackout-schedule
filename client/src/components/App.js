@@ -6,6 +6,7 @@ import SearchInput from "./SearchInput";
 
 function App() {
   const [schedule, fetchSchedule] = useSchedule(null);
+  const [queueNumber, setQueueNumber] = useState(null);
   // const [selectedAddress, setSelectedAddress] = useState(null);
   // const [apiData, setApiData] = useState();
   // useEffect(() => {
@@ -17,9 +18,14 @@ function App() {
   //   )
   // }, [])
 
-  // useEffect(() => {
-  //   setSelectedVideo(videos[0]);
-  // }, [videos]);
+  // const setQueueNumber = () => {
+  //   const queueNumber = ;
+
+  // }
+
+  useEffect(() => {
+    setQueueNumber(document.querySelector('[title^="Номер черги"]')?.innerText);
+  }, [schedule]);
 
   const defaultAddress = {
     city_id: "510100000",
@@ -56,6 +62,7 @@ function App() {
       <button onClick={() => fetchScheduleForAddress(addressChornovola)}>Fetch Chornovola</button>
       <button onClick={() => fetchScheduleForAddress(addressAtb)}>Fetch ATB</button>
       <button onClick={() => fetchScheduleForAddress(addressYunosti)}>Fetch Yunosti</button>
+
       <div>
         <div className="page-title">Онлайн графік погодинних відключень м.Вінниця</div>
         <div className="site-main-container">
@@ -69,6 +76,7 @@ function App() {
               {/* <input type="text" placeholder="Будинок"/> */}
             </div>
           </div>
+          <div className="queue-number">Номер черги: {queueNumber}</div>
           <div id="scheduleContainer" dangerouslySetInnerHTML={{__html: schedule}}></div>
         </div>
       </div>
