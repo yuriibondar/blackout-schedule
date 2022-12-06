@@ -38,5 +38,19 @@ app.post('/api', (req, res) => {
     });
 });
 
+app.get('/api/street/:id', (req, res) => {
+    axios.get(process.env.API_BASE_URL + '/autocomplete/read_street/' + req.params.id, {
+        params: {
+            q: req.query.q
+        }
+    })
+    .then(response => {
+        res.send(response.data);
+    })
+    .catch(error => {
+        res.status(500).send(error.message);
+    });
+})
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
