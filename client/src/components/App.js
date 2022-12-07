@@ -60,6 +60,8 @@ function App() {
   }
 
   const [streetSearchTerm, setStreetSearchTerm] = useState("");
+  const [streetSearchResult, setStreetSearchResult] = useState(null);
+  const [streetSearchDropdownOpen, setStreetSearchDropdownOpen] = useState(false);
   useEffect(() => {
     console.log('searching for street: ', streetSearchTerm)
     search(streetSearchTerm);
@@ -75,6 +77,13 @@ function App() {
         }
       })
       console.log('street search result: ', result)
+      
+      setStreetSearchResult(result.data);
+      if(result && result.data && result.data.length > 0) {
+        setStreetSearchDropdownOpen(true);
+      } else {
+        setStreetSearchDropdownOpen(false);
+      }
     }
     console.log('search ', term)
     searchStreet(term);
@@ -104,6 +113,16 @@ function App() {
               {/* <input type="text" placeholder="Будинок"/> */}
             </div>
           </div>
+          {streetSearchDropdownOpen && (
+        <ul className="menu">
+          {streetSearchResult.map((value) => (
+            <li className="menu-item" key={value.value}>
+              <button>{value.value}</button>
+            </li>
+          ))}          
+        </ul>
+      )}
+      {streetSearchDropdownOpen ? <div>Is Open</div> : <div>Is Closed</div>}
           <div className="queue-number">Номер черги: {queueNumber}</div>
           <div id="scheduleContainer" dangerouslySetInnerHTML={{__html: schedule}}></div>
         </div>
