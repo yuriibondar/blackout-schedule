@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import voe from "../api/voe";
 import useSchedule from '../hooks/useSchedule';
 import './App.css';
-import SearchInput from "./SearchInput";
+import StreetSearchInput from "./StreetSearchInput";
  
 
 function App() {
@@ -88,6 +88,11 @@ function App() {
     console.log('search ', term)
     searchStreet(term);
   }
+
+  const onStreetSelected = (selectedId, selectedName) => {
+    console.log('selectedId', selectedId, 'selectedName', selectedName)
+  }
+
   return (
     <div className="App">
       <button onClick={() => fetchScheduleForAddress(addressChornovola)}>Fetch Chornovola</button>
@@ -103,13 +108,12 @@ function App() {
               <div className="search-container">
                 <div className="search-inner">
                   <input type="text" placeholder="Вулиця" value={streetSearchTerm} onChange={(e) => setStreetSearchTerm(e.target.value)}/>
-                  <div>{streetSearchTerm}</div>
                 </div>
               </div>
               {/* <input type="text" placeholder="Вулиця"/> */}
             </div>
             <div className="field-container">
-              <SearchInput placeholder="Будинок" />
+              <StreetSearchInput placeholder="Будинок" onSelected={onStreetSelected}/>
               {/* <input type="text" placeholder="Будинок"/> */}
             </div>
           </div>
