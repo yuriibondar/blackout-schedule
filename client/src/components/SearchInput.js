@@ -1,24 +1,47 @@
 import { useEffect, useState } from "react";
 
-const SearchInput = ({placeholder, value, onSearch}) => {
-    
+const SearchInput = ({ placeholder, onSearch, onSelected }) => {
+  const [searchResult, setSearchResult] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchDropdownOpen, setSearchDropdownOpen] = useState(false);
+  useEffect(() => {
+    const search = async () => {
+      const result = await onSearch(searchTerm);
 
-    return (
-        <div className="search-inner">
+      if (result && result.length > 0) {
+        setSearchDropdownOpen(true);
+        setSearchResult(result);
+      } else {
+        setSearchDropdownOpen(false);
+      }
+    }
 
-            <input type="text" placeholder={placeholder} value={value} onChange={onSearch} />
-            {searchDropdownOpen && (
-        <ul className="menu">
-          {/* {streetSearchResult.map((value) => (
-            <li className="menu-item" key={value.value}>
-              <button>{value.value}</button>
+    search();
+  }, [searchTerm]);
+
+  return (
+    <div className="search-input">
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {searchDropdownOpen && (
+        <ul className="search-dropdown">
+          {searchResult.map((value) => (
+            <li
+              className="search-dropdown-item"
+              key={value.id}
+              onClick={() => onSelected(value.id, value.name)}
+            >
+              {value.name}
             </li>
-          ))}           */}
+          ))}
         </ul>
       )}
-        </div>
-    );
+    </div>
+  );
 };
 
 export default SearchInput;

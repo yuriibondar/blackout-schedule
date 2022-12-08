@@ -3,6 +3,7 @@ import voe from "../api/voe";
 import useSchedule from '../hooks/useSchedule';
 import './App.css';
 import StreetSearchInput from "./StreetSearchInput";
+import './SearchInput.css'
  
 
 function App() {
