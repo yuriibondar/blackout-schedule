@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import voe from "../api/voe";
 import useSchedule from '../hooks/useSchedule';
 import './App.css';
-import StreetSearchInput from "./StreetSearchInput";
+import StreetSearchInput from "./SearchStreetInput";
 import './SearchInput.css'
  
 

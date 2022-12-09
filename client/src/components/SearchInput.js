@@ -19,6 +19,11 @@ const SearchInput = ({ placeholder, onSearch, onSelected }) => {
     search();
   }, [searchTerm]);
 
+  const onItemSelected = (id, name) => {
+    onSelected(id, name);
+    setSearchDropdownOpen(false);
+  }
+
   return (
     <div className="search-input">
       <input
@@ -33,7 +38,7 @@ const SearchInput = ({ placeholder, onSearch, onSelected }) => {
             <li
               className="search-dropdown-item"
               key={value.id}
-              onClick={() => onSelected(value.id, value.name)}
+              onClick={() => onItemSelected(value.id, value.name)}
             >
               {value.name}
             </li>
