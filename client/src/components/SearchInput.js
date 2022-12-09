@@ -16,7 +16,15 @@ const SearchInput = ({ placeholder, onSearch, onSelected }) => {
       }
     }
 
-    search();
+    const timeoutId = setTimeout(() => {
+      if(searchTerm) {
+        search();
+      }
+    }, 400)
+
+    return () => {
+      clearTimeout(timeoutId);
+    }
   }, [searchTerm]);
 
   const onItemSelected = (id, name) => {
