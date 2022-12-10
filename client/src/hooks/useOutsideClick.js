@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 
 const useOutsideClick = (callback) => {
-  const ref = useRef;
+  const ref = useRef();
   console.log("init useOutsideClick");
 
   const handler = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
       callback();
-    if (ref && ref.current && event.target.contains(ref.current)) {
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener("click", handler);
@@ -19,6 +19,8 @@ const useOutsideClick = (callback) => {
       console.log("removeEventListener");
     };
   }, [ref]);
+
+  return ref;
 };
 
 export default useOutsideClick;
