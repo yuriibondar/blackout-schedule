@@ -8,9 +8,13 @@ const useSchedule = (defaultAddress) => {
         fetchSchedule(defaultAddress);
     }, [defaultAddress]);
   
-    const fetchSchedule = async (address) => {
-      console.log("post adress: ", address)
-      const result = await voe.post("/", address, {
+    const fetchSchedule = async (streetId, houseId) => {
+      const result = await voe.post("/", {        
+        city_id: "510100000",
+        street_id: streetId,
+        house_id: houseId,
+        form_id: "disconnection_detailed_search_form"
+      }, {
         headers: {
             "Accept": "application/json, text/javascript, */*; q=0.01",
             "Content-Type": "application/x-www-form-urlencoded"

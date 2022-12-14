@@ -38,8 +38,22 @@ app.post('/api', (req, res) => {
     });
 });
 
-app.get('/api/street/:id', (req, res) => {
-    axios.get(process.env.API_BASE_URL + '/autocomplete/read_street/' + req.params.id, {
+app.get('/api/street/:cityId', (req, res) => {
+    axios.get(process.env.API_BASE_URL + '/autocomplete/read_street/' + req.params.cityId, {
+        params: {
+            q: req.query.q
+        }
+    })
+    .then(response => {
+        res.send(response.data);
+    })
+    .catch(error => {
+        res.status(500).send(error.message);
+    });
+})
+
+app.get('/api/house/:streetId', (req, res) => {
+    axios.get(process.env.API_BASE_URL + '/autocomplete/read_house/' + req.params.streetId, {
         params: {
             q: req.query.q
         }

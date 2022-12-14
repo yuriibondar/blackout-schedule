@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import SearchInputDropdown from "./SearchInputDropdown";
+import './SearchInput.css'
 
-const SearchInput = ({ placeholder, onSearch, onSelected }) => {
+const SearchInput = ({ placeholder, value, onSearch, onSelected }) => {
   const [searchResult, setSearchResult] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDropdownOpen, setSearchDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    setSearchTerm(value);
+  }, [value])
+
   useEffect(() => {
     const search = async () => {
       const result = await onSearch(searchTerm);
@@ -30,6 +36,7 @@ const SearchInput = ({ placeholder, onSearch, onSelected }) => {
 
   const onItemSelected = (id, name) => {
     onSelected(id, name);
+    setSearchTerm(name);
     setSearchDropdownOpen(false);
   };
 

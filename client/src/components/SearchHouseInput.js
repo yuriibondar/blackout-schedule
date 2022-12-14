@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-
 import voe from "../api/voe";
 import SearchInput from "./SearchInput";
 
-const StreetSearchInput = ({ placeholder, value, onSearch, onSelected }) => {
-  const searchStreet = async (term) => {
-    const result = await voe.get("/street/510100000", {
+const SearchHouseInput = ({ streetId, value, onSelected }) => {
+  const searchHouse = async (term) => {
+    const result = await voe.get(`/house/${streetId}`, {
       params: {
         q: term,
       },
@@ -14,17 +12,17 @@ const StreetSearchInput = ({ placeholder, value, onSearch, onSelected }) => {
     return result && result.data && result.data.map((value) => {
         const parser = new DOMParser();
         const virtualDoc = parser.parseFromString(value.label, "text/html");
-        const streetId = virtualDoc
+        const houseId = virtualDoc
           .getElementsByTagName("div")[0]
           ?.getAttribute("data-id");
 
-        return {id: streetId, name: value.value}
+        return {id: houseId, name: value.value}
     })
   };
 
   return (
-    <SearchInput placeholder="Вулиця" onSearch={searchStreet} onSelected={onSelected} />
+    <SearchInput placeholder="Будинок" value={value} onSearch={searchHouse} onSelected={onSelected} />
   );
 };
 
-export default StreetSearchInput;
+export default SearchHouseInput;

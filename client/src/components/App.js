@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from "react";
-import voe from "../api/voe";
 import useSchedule from '../hooks/useSchedule';
 import './App.css';
-import StreetSearchInput from "./SearchStreetInput";
-import './SearchInput.css'
+import SearchHouseInput from "./SearchHouseInput";
+import SearchStreetInput from "./SearchStreetInput";
  
 
 function App() {
   const [schedule, fetchSchedule] = useSchedule(null);
   const [queueNumber, setQueueNumber] = useState(null);
-  // const [selectedAddress, setSelectedAddress] = useState(null);
-  // const [apiData, setApiData] = useState();
-  // useEffect(() => {
-  //   fetch("/api")
-  //   .then(
-  //     data => {
-  //       setApiData(data)
-  //     }
-  //   )
-  // }, [])
+  const [houseSearchterm, setHouseSearchterm] = useState('');
 
-  // const setQueueNumber = () => {
-  //   const queueNumber = ;
-
-  // }
+  const [selectedStreet, setSelectedStreet] = useState(null);
+  const [selectedHouse, setSelectedHouse] = useState(null);
 
   useEffect(() => {
     setQueueNumber(document.querySelector('[title^="Номер черги"]')?.innerText);
   }, [schedule]);
 
+  useEffect(() => {
+    selectedHouse && selectedHouse.id && fetchSchedule(selectedStreet.id, selectedHouse.id);
+  }, [selectedHouse])
 
   const defaultAddress = {
     city_id: "510100000",
@@ -59,39 +50,15 @@ function App() {
   const fetchScheduleForAddress = (address = addressChornovola) => {    
     fetchSchedule(address);
   }
-
-  const [streetSearchTerm, setStreetSearchTerm] = useState("");
-  const [streetSearchResult, setStreetSearchResult] = useState(null);
-  const [streetSearchDropdownOpen, setStreetSearchDropdownOpen] = useState(false);
-  useEffect(() => {
-    console.log('searching for street: ', streetSearchTerm)
-    search(streetSearchTerm);
-  }, [streetSearchTerm])
-
-  const search = (term) => {
-    //api call
-    const searchStreet = async (term) => {
-      console.log('term', term)
-      const result = await voe.get('/street/510100000', {
-        params: {
-          q: term
-        }
-      })
-      console.log('street search result: ', result)
-      
-      setStreetSearchResult(result.data);
-      if(result && result.data && result.data.length > 0) {
-        setStreetSearchDropdownOpen(true);
-      } else {
-        setStreetSearchDropdownOpen(false);
-      }
-    }
-    console.log('search ', term)
-    searchStreet(term);
+  
+  const onStreetSelected = (id, name) => {
+    console.log('selectedId', id, 'selectedName', name)
+    setSelectedStreet({id, name})
+    setHouseSearchterm('')
   }
-
-  const onStreetSelected = (selectedId, selectedName) => {
-    console.log('selectedId', selectedId, 'selectedName', selectedName)
+  const onHouseSelected = (id, name) => {
+    console.log('selectedHouseId', id, 'selectedHouseName', name)
+    setSelectedHouse({id, name})
   }
 
   return (
@@ -104,30 +71,16 @@ function App() {
         <div className="page-title">Онлайн графік погодинних відключень м.Вінниця</div>
         <div className="site-main-container">
           <div className="custom-fields-wrapper">
-            <div className="field-container">
-              {/* <SearchInput placeholder="Вулиця" /> */}
-              <div className="search-container">
-                <div className="search-inner">
-                  <input type="text" placeholder="Вулиця" value={streetSearchTerm} onChange={(e) => setStreetSearchTerm(e.target.value)}/>
-                </div>
-              </div>
-              {/* <input type="text" placeholder="Вулиця"/> */}
+            <div className="field-container">              
+              <SearchStreetInput onSelected={onStreetSelected}/>
             </div>
             <div className="field-container">
-              <StreetSearchInput placeholder="Будинок" onSelected={onStreetSelected}/>
+              <SearchHouseInput streetId={selectedStreet && selectedStreet.id} value={houseSearchterm} onSelected={onHouseSelected}/>
               {/* <input type="text" placeholder="Будинок"/> */}
             </div>
           </div>
-          {streetSearchDropdownOpen && (
-        <ul className="menu">
-          {streetSearchResult.map((value) => (
-            <li className="menu-item" key={value.value}>
-              <button>{value.value}</button>
-            </li>
-          ))}          
-        </ul>
-      )}
-      {streetSearchDropdownOpen ? <div>Is Open</div> : <div>Is Closed</div>}
+          
+          <div className="queue-number">Обрана адреса: {selectedStreet?.name}, {selectedHouse?.name}</div>
           <div className="queue-number">Номер черги: {queueNumber}</div>
           <div id="scheduleContainer" dangerouslySetInnerHTML={{__html: schedule}}></div>
         </div>
