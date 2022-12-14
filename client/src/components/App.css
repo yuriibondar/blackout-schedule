@@ -39,6 +39,61 @@ body {
   font-weight: 700;
   margin-bottom: 25px;
 }
+.favorites-container {
+  background: #EDF2F7;
+  padding: 15px 25px;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 25px 0;
+}
+.favorites-items-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin-top: 5px;
+
+}
+.favorites-item {
+  background: #fff;
+  padding: 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.favorites-item:hover {
+    background-color: #F25E1D;
+    color: #fff;
+    cursor: pointer;
+}
+.favorites-empty {
+  font-weight: 400;
+}
+.favorites-button {
+  float: right
+}
+.favorites-add::after {
+  content: "\f06f"; /* Star Outline */
+  line-height: 1;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-size: 18px;
+  vertical-align: middle;
+}
+.favorites-add:hover::after {
+  content: "\e838"; /* Star Filled */
+}
+.favorites-remove::after {
+  content: "\e838"; /* Star Filled */
+  line-height: 1;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.favorites-remove:hover::after {
+  content: "\f06f"; /* Star Outline */
+}
 
 .disconnection-detailed-table > p:first-child {
   display: none;
@@ -108,9 +163,11 @@ body {
   flex-direction: column;
 }
 .disconnection-detailed-table-cell.has_disconnection:before {
-  content: "⚡";
-  content: "\26A1";
-  content: "\e646";
+  /* content: "⚡";
+  content: "\26A1"; */
+  content: "\e646"; /* Power Off */
+  content: "\e838"; /* Star Filled */
+  content: "\f06f"; /* Star Outline */
   line-height: 1;
   font-family: "Material Icons";
   font-weight: normal;
