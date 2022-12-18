@@ -8,7 +8,7 @@ import { useCookies } from "react-cookie";
 function App() {
   const [schedule, fetchSchedule] = useSchedule(null);
   const [queueNumber, setQueueNumber] = useState(null);
-  const [houseSearchterm, setHouseSearchterm] = useState("");
+  // const [houseSearchterm, setHouseSearchterm] = useState("");
 
   const [selectedStreet, setSelectedStreet] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null);
@@ -36,7 +36,8 @@ function App() {
   const onStreetSelected = (id, name) => {
     console.log("selectedId", id, "selectedName", name);
     setSelectedStreet({ id, name });
-    setHouseSearchterm("");
+    setSelectedHouse(null);
+    // setHouseSearchterm("");
   };
   const onHouseSelected = (id, name) => {
     console.log("selectedHouseId", id, "selectedHouseName", name);
@@ -113,12 +114,15 @@ function App() {
           </div>
           <div className="custom-fields-wrapper">
             <div className="field-container">
-              <SearchStreetInput onSelected={onStreetSelected} />
+              <SearchStreetInput
+                value={selectedStreet ? selectedStreet.name : ""}
+                onSelected={onStreetSelected}
+              />
             </div>
             <div className="field-container">
               <SearchHouseInput
                 streetId={selectedStreet && selectedStreet.id}
-                value={houseSearchterm}
+                value={selectedHouse ? selectedHouse.name : ""}
                 onSelected={onHouseSelected}
               />
             </div>

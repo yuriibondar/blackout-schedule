@@ -23,7 +23,7 @@ const SearchStreetInput = ({ placeholder, value, onSearch, onSelected }) => {
   };
 
   return (
-    <SearchInput placeholder="Вулиця" onSearch={searchStreet} onSelected={onSelected} />
+    <SearchInput placeholder="Вулиця" value={value} onSearch={searchStreet} onSelected={onSelected} />
   );
 };
 
