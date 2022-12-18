@@ -13,7 +13,6 @@ function App() {
   const [selectedStreet, setSelectedStreet] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null);
   const [addressHistory, setAddressHistory] = useState([]);
-  // const [favorites, setFavorites] = useState([]);
   const [cookies, setCookie] = useCookies(["favorites"]);
 
   useEffect(() => {
@@ -34,36 +33,6 @@ function App() {
     }
   }, [selectedHouse]);
 
-  const defaultAddress = {
-    city_id: "510100000",
-    street_id: "1761",
-    house_id: "43820",
-  };
-
-  const addressYunosti = {
-    city_id: "510100000",
-    street_id: "1783",
-    house_id: "48666",
-    form_id: "disconnection_detailed_search_form",
-  };
-
-  const addressChornovola = {
-    city_id: "510100000",
-    street_id: "1761",
-    house_id: "43820",
-    form_id: "disconnection_detailed_search_form",
-  };
-  const addressAtb = {
-    city_id: "510100000",
-    street_id: "1334",
-    house_id: "43729",
-    form_id: "disconnection_detailed_search_form",
-  };
-
-  const fetchScheduleForAddress = (address = addressChornovola) => {
-    fetchSchedule(address);
-  };
-
   const onStreetSelected = (id, name) => {
     console.log("selectedId", id, "selectedName", name);
     setSelectedStreet({ id, name });
@@ -80,42 +49,31 @@ function App() {
   };
 
   const onAddToFavorites = (street, house) => {
-    // setFavorites((prev) => [
-    //   ...prev,
-    //   {
-    //     street: { id: street.id, name: street.name },
-    //     house: { id: house.id, name: house.name },
-    //   },
-    // ]);
-    setCookie("favorites", [
-      ...(cookies.favorites || []),
-      {
-        street: { id: street.id, name: street.name },
-        house: { id: house.id, name: house.name },
-      },
-    ], {path: "/"});
+    setCookie(
+      "favorites",
+      [
+        ...(cookies.favorites || []),
+        {
+          street: { id: street.id, name: street.name },
+          house: { id: house.id, name: house.name },
+        },
+      ],
+      { path: "/" }
+    );
   };
 
   const onRemoveFromFavorites = (street, house) => {
-    // setFavorites((prev) =>
-    //   prev.filter((a) => a.street.id !== street.id || a.house.id !== house.id)
-    // );
-    
-    setCookie("favorites", cookies.favorites.filter((a) => a.street.id !== street.id || a.house.id !== house.id));
+    setCookie(
+      "favorites",
+      cookies.favorites.filter(
+        (a) => a.street.id !== street.id || a.house.id !== house.id
+      ),
+      { path: "/" }
+    );
   };
 
   return (
     <div className="App">
-      <button onClick={() => fetchScheduleForAddress(addressChornovola)}>
-        Fetch Chornovola
-      </button>
-      <button onClick={() => fetchScheduleForAddress(addressAtb)}>
-        Fetch ATB
-      </button>
-      <button onClick={() => fetchScheduleForAddress(addressYunosti)}>
-        Fetch Yunosti
-      </button>
-
       <div>
         <div className="page-title">
           Онлайн графік погодинних відключень м.Вінниця
@@ -163,7 +121,6 @@ function App() {
                 value={houseSearchterm}
                 onSelected={onHouseSelected}
               />
-              {/* <input type="text" placeholder="Будинок"/> */}
             </div>
           </div>
 
