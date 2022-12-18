@@ -3,6 +3,7 @@ import useSchedule from "../hooks/useSchedule";
 import "./App.css";
 import SearchHouseInput from "./SearchHouseInput";
 import SearchStreetInput from "./SearchStreetInput";
+import { useCookies } from "react-cookie";
 
 function App() {
   const [schedule, fetchSchedule] = useSchedule(null);
@@ -12,7 +13,8 @@ function App() {
   const [selectedStreet, setSelectedStreet] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null);
   const [addressHistory, setAddressHistory] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
+  const [cookies, setCookie] = useCookies(["favorites"]);
 
   useEffect(() => {
     setQueueNumber(document.querySelector('[title^="Номер черги"]')?.innerText);
@@ -78,19 +80,28 @@ function App() {
   };
 
   const onAddToFavorites = (street, house) => {
-    setFavorites((prev) => [
-      ...prev,
+    // setFavorites((prev) => [
+    //   ...prev,
+    //   {
+    //     street: { id: street.id, name: street.name },
+    //     house: { id: house.id, name: house.name },
+    //   },
+    // ]);
+    setCookie("favorites", [
+      ...(cookies.favorites || []),
       {
         street: { id: street.id, name: street.name },
         house: { id: house.id, name: house.name },
       },
-    ]);
+    ], {path: "/"});
   };
 
   const onRemoveFromFavorites = (street, house) => {
-    setFavorites((prev) =>
-      prev.filter((a) => a.street.id !== street.id && a.house.id !== house.id)
-    );
+    // setFavorites((prev) =>
+    //   prev.filter((a) => a.street.id !== street.id || a.house.id !== house.id)
+    // );
+    
+    setCookie("favorites", cookies.favorites.filter((a) => a.street.id !== street.id || a.house.id !== house.id));
   };
 
   return (
@@ -125,21 +136,21 @@ function App() {
           <div className="favorites-container">
             Обрані адреси:
             <div className="favorites-items-container">
-            {favorites && favorites.length > 0 ? (
-              favorites.map((address) => (
-                <div
-                  className="favorites-item"
-                  onClick={() => onAddressSelected(address)}
-                >
-                  {address.street.name}, {address.house.name}
+              {cookies.favorites && cookies.favorites.length > 0 ? (
+                cookies.favorites.map((address) => (
+                  <div
+                    className="favorites-item"
+                    onClick={() => onAddressSelected(address)}
+                  >
+                    {address.street.name}, {address.house.name}
+                  </div>
+                ))
+              ) : (
+                <div className="favorites-empty">
+                  Для того, щоб додати адресу до обраних, натисніть{" "}
+                  <span className="favorites-add"></span>{" "}
                 </div>
-              ))
-            ) : (
-              <div className="favorites-empty">
-                Для того, щоб додати адресу до обраних, натисніть{" "}
-                <span className="favorites-add"></span>{" "}
-              </div>
-            )}
+              )}
             </div>
           </div>
           <div className="custom-fields-wrapper">
@@ -161,7 +172,7 @@ function App() {
             {selectedHouse && (
               <>
                 , {selectedHouse?.name}
-                {favorites.some(
+                {cookies.favorites?.some(
                   (addr) =>
                     addr.street.id === selectedStreet.id &&
                     addr.house.id === selectedHouse.id

@@ -163,11 +163,7 @@ body {
   flex-direction: column;
 }
 .disconnection-detailed-table-cell.has_disconnection:before {
-  /* content: "⚡";
-  content: "\26A1"; */
   content: "\e646"; /* Power Off */
-  content: "\e838"; /* Star Filled */
-  content: "\f06f"; /* Star Outline */
   line-height: 1;
   font-family: "Material Icons";
   font-weight: normal;
