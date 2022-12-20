@@ -4,7 +4,7 @@
 /client/node_modules
 /client/build
 /server/node_modules
-/server/build
+# /server/build
 /.pnp
 .pnp.js
 
