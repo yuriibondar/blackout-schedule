@@ -13,9 +13,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get(/^(?!\/api).+/, (req, res) => {
-    
-    console.log("STATIC __dirname:", __dirname);
     res.sendFile(path.join(__dirname, './build/index.html'))
+})
+
+app.get('/api/test', (req, res) => {
+    res.send('TEST')
 })
 
 app.post('/api', (req, res) => {
