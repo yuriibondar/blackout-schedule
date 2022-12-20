@@ -1,24 +1,24 @@
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 require('dotenv').config();
 
 const app = express();
-
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   next();
-// });
-
+app.use(express.static(path.join(__dirname, './build')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.get(/^(?!\/api).+/, (req, res) => {
+    
+    console.log("STATIC __dirname:", __dirname);
+    res.sendFile(path.join(__dirname, './build/index.html'))
+})
+
 app.post('/api', (req, res) => {
-    console.log("req.body - ", req.body);
-    //console.log("req - ", req);
     axios.post(process.env.API_BASE_URL, req.body, {
         headers: {
             "accept": "application/json, text/javascript, */*; q=0.01",
@@ -29,11 +29,10 @@ app.post('/api', (req, res) => {
         }
     })
     .then(response => {
-        //console.log(response);
         res.send(response.data);
     })
     .catch(error => {
-        console.log("Error - ", error);
+        console.log("API Error:", error);
         res.status(500).send(error.message);
     });
 });
