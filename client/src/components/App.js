@@ -14,6 +14,7 @@ function App() {
   const [selectedHouse, setSelectedHouse] = useState(null);
   const [addressHistory, setAddressHistory] = useState([]);
   const [cookies, setCookie] = useCookies(["favorites"]);
+  const maxCookiesExpirationDate = new Date(2147483647 * 1000);
 
   useEffect(() => {
     setQueueNumber(document.querySelector('[title^="Номер черги"]')?.innerText);
@@ -59,7 +60,7 @@ function App() {
           house: { id: house.id, name: house.name },
         },
       ],
-      { path: "/" }
+      { path: "/", expires: maxCookiesExpirationDate }
     );
   };
 
@@ -69,7 +70,7 @@ function App() {
       cookies.favorites.filter(
         (a) => a.street.id !== street.id || a.house.id !== house.id
       ),
-      { path: "/" }
+      { path: "/", expires: maxCookiesExpirationDate }
     );
   };
 
