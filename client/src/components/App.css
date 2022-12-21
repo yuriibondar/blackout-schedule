@@ -11,6 +11,9 @@ body {
   font-size: 1rem;
   line-height: 1.25;
 }
+.app-container {  
+  min-width: 300px;
+}
 .fields_wrapper {
   display: none;
 }
@@ -18,6 +21,8 @@ body {
 .site-main-container {
   padding-left: 25px;
   padding-right: 25px;
+  max-width: 700px;
+  margin-bottom: 25px;
 }
 
 .custom-fields-wrapper {
@@ -31,7 +36,6 @@ body {
   width: 50%;
   padding: 0 5px;
 }
-
 .queue-number {
   background: #EDF2F7;
   padding: 15px 25px;
@@ -69,8 +73,16 @@ body {
 .favorites-empty {
   font-weight: 400;
 }
+.selected-address {
+  display: flex;
+  background: #EDF2F7;
+  padding: 15px 25px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
 .favorites-button {
-  float: right
+  margin-left: auto;
 }
 .favorites-add::after {
   content: "\f06f"; /* Star Outline */
@@ -89,6 +101,7 @@ body {
   font-family: "Material Icons";
   font-weight: normal;
   font-size: 18px;
+  vertical-align: middle;
 }
 
 .favorites-remove:hover::after {

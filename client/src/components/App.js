@@ -74,93 +74,91 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div>
-        <div className="page-title">
-          Онлайн графік погодинних відключень м.Вінниця
+    <div className="app-container">
+      <div className="page-title">
+        Онлайн графік погодинних відключень м.Вінниця
+      </div>
+      <div className="site-main-container">
+        <div style={{ display: "none" }}>
+          Історія пошуку:
+          {addressHistory.map((address) => (
+            <div
+              className="queue-number"
+              onClick={() => onAddressSelected(address)}
+            >
+              {address.street.name + address.house.name}
+            </div>
+          ))}
         </div>
-        <div className="site-main-container">
-          <div style={{ display: "none" }}>
-            Історія пошуку:
-            {addressHistory.map((address) => (
-              <div
-                className="queue-number"
-                onClick={() => onAddressSelected(address)}
-              >
-                {address.street.name + address.house.name}
-              </div>
-            ))}
-          </div>
 
-          <div className="favorites-container">
-            Обрані адреси:
-            <div className="favorites-items-container">
-              {cookies.favorites && cookies.favorites.length > 0 ? (
-                cookies.favorites.map((address) => (
-                  <div
-                    className="favorites-item"
-                    onClick={() => onAddressSelected(address)}
-                  >
-                    {address.street.name}, {address.house.name}
-                  </div>
-                ))
-              ) : (
-                <div className="favorites-empty">
-                  Для того, щоб додати адресу до обраних, натисніть{" "}
-                  <span className="favorites-add"></span>{" "}
+        <div className="favorites-container">
+          Обрані адреси:
+          <div className="favorites-items-container">
+            {cookies.favorites && cookies.favorites.length > 0 ? (
+              cookies.favorites.map((address) => (
+                <div
+                  className="favorites-item"
+                  onClick={() => onAddressSelected(address)}
+                >
+                  {address.street.name}, {address.house.name}
                 </div>
-              )}
-            </div>
-          </div>
-          <div className="custom-fields-wrapper">
-            <div className="field-container">
-              <SearchStreetInput
-                value={selectedStreet ? selectedStreet.name : ""}
-                onSelected={onStreetSelected}
-              />
-            </div>
-            <div className="field-container">
-              <SearchHouseInput
-                streetId={selectedStreet && selectedStreet.id}
-                value={selectedHouse ? selectedHouse.name : ""}
-                onSelected={onHouseSelected}
-              />
-            </div>
-          </div>
-
-          <div className="queue-number">
-            Адреса: {selectedStreet?.name}
-            {selectedHouse && (
-              <>
-                , {selectedHouse?.name}
-                {cookies.favorites?.some(
-                  (addr) =>
-                    addr.street.id === selectedStreet.id &&
-                    addr.house.id === selectedHouse.id
-                ) ? (
-                  <span
-                    className="favorites-remove favorites-button"
-                    onClick={() =>
-                      onRemoveFromFavorites(selectedStreet, selectedHouse)
-                    }
-                  ></span>
-                ) : (
-                  <span
-                    className="favorites-add favorites-button"
-                    onClick={() =>
-                      onAddToFavorites(selectedStreet, selectedHouse)
-                    }
-                  ></span>
-                )}
-              </>
+              ))
+            ) : (
+              <div className="favorites-empty">
+                Для того, щоб додати адресу до обраних, натисніть{" "}
+                <span className="favorites-add"></span>{" "}
+              </div>
             )}
           </div>
-          <div className="queue-number">Номер черги: {queueNumber}</div>
-          <div
-            id="scheduleContainer"
-            dangerouslySetInnerHTML={{ __html: schedule }}
-          ></div>
         </div>
+        <div className="custom-fields-wrapper">
+          <div className="field-container">
+            <SearchStreetInput
+              value={selectedStreet ? selectedStreet.name : ""}
+              onSelected={onStreetSelected}
+            />
+          </div>
+          <div className="field-container">
+            <SearchHouseInput
+              streetId={selectedStreet && selectedStreet.id}
+              value={selectedHouse ? selectedHouse.name : ""}
+              onSelected={onHouseSelected}
+            />
+          </div>
+        </div>
+
+        <div className="selected-address">
+          Адреса: {selectedStreet?.name}
+          {selectedHouse && (
+            <>
+              , {selectedHouse?.name}
+              {cookies.favorites?.some(
+                (addr) =>
+                  addr.street.id === selectedStreet.id &&
+                  addr.house.id === selectedHouse.id
+              ) ? (
+                <span
+                  className="favorites-remove favorites-button"
+                  onClick={() =>
+                    onRemoveFromFavorites(selectedStreet, selectedHouse)
+                  }
+                ></span>
+              ) : (
+                <span
+                  className="favorites-add favorites-button"
+                  onClick={() =>
+                    onAddToFavorites(selectedStreet, selectedHouse)
+                  }
+                ></span>
+              )}
+            </>
+          )}
+        </div>
+        <div className="queue-number">Номер черги: {queueNumber}</div>
+        <div
+          id="scheduleContainer"
+          dangerouslySetInnerHTML={{ __html: schedule }}
+        ></div>
       </div>
     </div>
   );
