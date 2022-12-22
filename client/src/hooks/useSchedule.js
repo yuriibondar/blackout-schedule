@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import voe from "../api/voe";
 
-const useSchedule = (defaultAddress) => {
-    const [schedule, setSchedule] = useState([]);
-  
-    useEffect(() => {
-        fetchSchedule(defaultAddress);
-    }, [defaultAddress]);
-  
+const useSchedule = () => {
+    const [schedule, setSchedule] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+ 
     const fetchSchedule = async (streetId, houseId) => {
+      setIsLoading(true);
       const result = await voe.post("/", {        
         city_id: "510100000",
         street_id: streetId,
@@ -24,10 +22,11 @@ const useSchedule = (defaultAddress) => {
         }
       });
       console.log("result - ", result);
+      setIsLoading(false);
       setSchedule(result.data[3].data);
     };
   
-    return [schedule, fetchSchedule];
+    return [schedule, fetchSchedule, isLoading];
   };
   
   export default useSchedule;

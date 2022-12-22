@@ -4,9 +4,16 @@ import "./App.css";
 import SearchHouseInput from "./SearchHouseInput";
 import SearchStreetInput from "./SearchStreetInput";
 import { useCookies } from "react-cookie";
+import FadeLoader from "react-spinners/FadeLoader";
+
+const spinnerCssOverride = {
+  display: "block",
+  margin: "0 auto",
+  left: "25px",
+};
 
 function App() {
-  const [schedule, fetchSchedule] = useSchedule(null);
+  const [schedule, fetchSchedule, isLoading] = useSchedule(null);
   const [queueNumber, setQueueNumber] = useState(null);
   // const [houseSearchterm, setHouseSearchterm] = useState("");
 
@@ -17,11 +24,13 @@ function App() {
   const maxCookiesExpirationDate = new Date(2147483647 * 1000);
 
   useEffect(() => {
+    // setIsLoading(false);
     setQueueNumber(document.querySelector('[title^="Номер черги"]')?.innerText);
   }, [schedule]);
 
   useEffect(() => {
     if (selectedHouse && selectedHouse.id) {
+      // setIsLoading(true);
       fetchSchedule(selectedStreet.id, selectedHouse.id);
 
       setAddressHistory((prev) => [
@@ -126,40 +135,44 @@ function App() {
               onSelected={onHouseSelected}
             />
           </div>
-        </div>
-
-        <div className="selected-address">
-          Адреса: {selectedStreet?.name}
-          {selectedHouse && (
-            <>
-              , {selectedHouse?.name}
-              {cookies.favorites?.some(
-                (addr) =>
-                  addr.street.id === selectedStreet.id &&
-                  addr.house.id === selectedHouse.id
-              ) ? (
-                <span
-                  className="favorites-remove favorites-button"
-                  onClick={() =>
-                    onRemoveFromFavorites(selectedStreet, selectedHouse)
-                  }
-                ></span>
-              ) : (
-                <span
-                  className="favorites-add favorites-button"
-                  onClick={() =>
-                    onAddToFavorites(selectedStreet, selectedHouse)
-                  }
-                ></span>
+        </div>        
+        <FadeLoader loading={isLoading} color="#F25E1D" cssOverride={spinnerCssOverride}/>
+        {schedule && !isLoading && (
+          <>
+            <div className="selected-address">
+              Адреса: {selectedStreet?.name}
+              {selectedHouse && (
+                <>
+                  , {selectedHouse?.name}
+                  {cookies.favorites?.some(
+                    (addr) =>
+                      addr.street.id === selectedStreet.id &&
+                      addr.house.id === selectedHouse.id
+                  ) ? (
+                    <span
+                      className="favorites-remove favorites-button"
+                      onClick={() =>
+                        onRemoveFromFavorites(selectedStreet, selectedHouse)
+                      }
+                    ></span>
+                  ) : (
+                    <span
+                      className="favorites-add favorites-button"
+                      onClick={() =>
+                        onAddToFavorites(selectedStreet, selectedHouse)
+                      }
+                    ></span>
+                  )}
+                </>
               )}
-            </>
-          )}
-        </div>
-        <div className="queue-number">Номер черги: {queueNumber}</div>
-        <div
-          id="scheduleContainer"
-          dangerouslySetInnerHTML={{ __html: schedule }}
-        ></div>
+            </div>
+            <div className="queue-number">Номер черги: {queueNumber}</div>
+            <div
+              id="scheduleContainer"
+              dangerouslySetInnerHTML={{ __html: schedule }}
+            ></div>
+          </>
+        )}
       </div>
     </div>
   );
