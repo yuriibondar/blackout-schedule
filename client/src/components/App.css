@@ -93,7 +93,7 @@ body {
   vertical-align: middle;
 }
 .favorites-add:hover::after {
-  content: "\e838"; /* Star Filled */
+  cursor: pointer;
 }
 .favorites-remove::after {
   content: "\e838"; /* Star Filled */
@@ -105,7 +105,7 @@ body {
 }
 
 .favorites-remove:hover::after {
-  content: "\f06f"; /* Star Outline */
+  cursor: pointer;
 }
 
 .disconnection-detailed-table > p:first-child {
