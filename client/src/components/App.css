@@ -41,7 +41,7 @@ body {
   padding: 15px 25px;
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 .favorites-container {
   background: #EDF2F7;
@@ -79,7 +79,7 @@ body {
   padding: 15px 25px;
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 .favorites-button {
   margin-left: auto;
