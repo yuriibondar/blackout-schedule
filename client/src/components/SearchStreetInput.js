@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-
 import voe from "../api/voe";
 import SearchInput from "./SearchInput";
 
-const SearchStreetInput = ({ placeholder, value, onSearch, onSelected }) => {
+const SearchStreetInput = ({ value, onSelected }) => {
   const searchStreet = async (term) => {
     const result = await voe.get("/street/510100000", {
       params: {

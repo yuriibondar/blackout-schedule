@@ -5,6 +5,7 @@ import SearchHouseInput from "./SearchHouseInput";
 import SearchStreetInput from "./SearchStreetInput";
 import { useCookies } from "react-cookie";
 import FadeLoader from "react-spinners/FadeLoader";
+import Favorites from "./Favorites";
 
 const spinnerCssOverride = {
   display: "block",
@@ -15,8 +16,6 @@ const spinnerCssOverride = {
 function App() {
   const [schedule, fetchSchedule, isLoading] = useSchedule(null);
   const [queueNumber, setQueueNumber] = useState(null);
-  // const [houseSearchterm, setHouseSearchterm] = useState("");
-
   const [selectedStreet, setSelectedStreet] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null);
   const [addressHistory, setAddressHistory] = useState([]);
@@ -24,13 +23,11 @@ function App() {
   const maxCookiesExpirationDate = new Date(2147483647 * 1000);
 
   useEffect(() => {
-    // setIsLoading(false);
     setQueueNumber(document.querySelector('[title^="Номер черги"]')?.innerText);
   }, [schedule]);
 
   useEffect(() => {
     if (selectedHouse && selectedHouse.id) {
-      // setIsLoading(true);
       fetchSchedule(selectedStreet.id, selectedHouse.id);
 
       setAddressHistory((prev) => [
@@ -47,7 +44,6 @@ function App() {
     console.log("selectedId", id, "selectedName", name);
     setSelectedStreet({ id, name });
     setSelectedHouse(null);
-    // setHouseSearchterm("");
   };
   const onHouseSelected = (id, name) => {
     console.log("selectedHouseId", id, "selectedHouseName", name);
@@ -93,6 +89,7 @@ function App() {
           Історія пошуку:
           {addressHistory.map((address) => (
             <div
+              key={`${address.street.id}-${address.house.id}`}
               className="queue-number"
               onClick={() => onAddressSelected(address)}
             >
@@ -100,27 +97,10 @@ function App() {
             </div>
           ))}
         </div>
-
-        <div className="favorites-container">
-          Обрані адреси:
-          <div className="favorites-items-container">
-            {cookies.favorites && cookies.favorites.length > 0 ? (
-              cookies.favorites.map((address) => (
-                <div
-                  className="favorites-item"
-                  onClick={() => onAddressSelected(address)}
-                >
-                  {address.street.name}, {address.house.name}
-                </div>
-              ))
-            ) : (
-              <div className="favorites-empty">
-                Для того, щоб додати адресу до обраних, натисніть{" "}
-                <span className="favorites-add"></span>{" "}
-              </div>
-            )}
-          </div>
-        </div>
+        <Favorites
+          favorites={cookies.favorites}
+          onAddressSelected={onAddressSelected}
+        />
         <div className="custom-fields-wrapper">
           <div className="field-container">
             <SearchStreetInput
@@ -135,8 +115,12 @@ function App() {
               onSelected={onHouseSelected}
             />
           </div>
-        </div>        
-        <FadeLoader loading={isLoading} color="#F25E1D" cssOverride={spinnerCssOverride}/>
+        </div>
+        <FadeLoader
+          loading={isLoading}
+          color="#F25E1D"
+          cssOverride={spinnerCssOverride}
+        />
         {schedule && !isLoading && (
           <>
             <div className="selected-address">
