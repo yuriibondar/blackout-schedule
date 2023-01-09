@@ -6,6 +6,7 @@ import SearchStreetInput from "./SearchStreetInput";
 import { useCookies } from "react-cookie";
 import FadeLoader from "react-spinners/FadeLoader";
 import Favorites from "./Favorites";
+import CurrentAddress from "./CurrentAddress";
 
 const spinnerCssOverride = {
   display: "block",
@@ -123,33 +124,17 @@ function App() {
         />
         {schedule && !isLoading && (
           <>
-            <div className="selected-address">
-              Адреса: {selectedStreet?.name}
-              {selectedHouse && (
-                <>
-                  , {selectedHouse?.name}
-                  {cookies.favorites?.some(
-                    (addr) =>
-                      addr.street.id === selectedStreet.id &&
-                      addr.house.id === selectedHouse.id
-                  ) ? (
-                    <span
-                      className="favorites-remove favorites-button"
-                      onClick={() =>
-                        onRemoveFromFavorites(selectedStreet, selectedHouse)
-                      }
-                    ></span>
-                  ) : (
-                    <span
-                      className="favorites-add favorites-button"
-                      onClick={() =>
-                        onAddToFavorites(selectedStreet, selectedHouse)
-                      }
-                    ></span>
-                  )}
-                </>
+            <CurrentAddress
+              isFavorite={cookies.favorites?.some(
+                (addr) =>
+                  addr.street.id === selectedStreet.id &&
+                  addr.house.id === selectedHouse.id
               )}
-            </div>
+              selectedStreet={selectedStreet}
+              selectedHouse={selectedHouse}
+              onAddToFavorites={onAddToFavorites}
+              onRemoveFromFavorites={onRemoveFromFavorites}
+            />
             <div className="queue-number">Номер черги: {queueNumber}</div>
             <div
               id="scheduleContainer"
