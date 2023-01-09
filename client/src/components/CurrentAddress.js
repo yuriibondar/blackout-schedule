@@ -1,3 +1,5 @@
+import styles from './CurrentAddress.module.css';
+
 const CurrentAddress = ({
   isFavorite,
   selectedStreet,
@@ -6,21 +8,21 @@ const CurrentAddress = ({
   onRemoveFromFavorites,
 }) => {
   return (
-    <div className="selected-address">
+    <div className={styles.currentAddress}>
       Адреса: {selectedStreet?.name}
       {selectedHouse && (
         <>
           , {selectedHouse?.name}
           {isFavorite ? (
             <span
-              className="favorites-remove favorites-button"
+              className={`${styles.favoritesRemove} ${styles.favoritesButton}`}
               onClick={() =>
                 onRemoveFromFavorites(selectedStreet, selectedHouse)
               }
             ></span>
           ) : (
             <span
-              className="favorites-add favorites-button"
+              className={`${styles.favoritesAdd} ${styles.favoritesButton}`}
               onClick={() => onAddToFavorites(selectedStreet, selectedHouse)}
             ></span>
           )}
