@@ -1,9 +1,13 @@
-const express = require('express');
-const axios = require('axios');
-const bodyParser = require('body-parser');
-const path = require('path');
+import express from 'express';
+import axios from 'axios';
+import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 app.use(express.static(path.join(__dirname, './build')))
