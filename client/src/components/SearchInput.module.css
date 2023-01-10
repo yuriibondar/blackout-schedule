@@ -1,8 +1,8 @@
-.search-input {
+.container {
     position: relative;
 }
 
-.search-dropdown {
+.dropdown {
     position: absolute;
     font-size: 0.82rem;    
     box-shadow: 0px 4px 8px rgba(169,183,189,0.2);
@@ -10,17 +10,17 @@
     list-style: none;
     width: 100%;
 }
-.search-dropdown-item {
+.dropdownItem {
     transition-duration: 0.2s;
     padding: 10px 15px;
     border-bottom: #DDD solid 1px;
 }
 
-.search-dropdown-item:last-child {
+.dropdownItem:last-child {
     border: none;
 }
 
-.search-dropdown-item:hover {
+.dropdownItem:hover {
     background-color: #F25E1D;
     color: #fff;
     cursor: pointer;

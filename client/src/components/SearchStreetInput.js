@@ -1,5 +1,6 @@
 import voe from "../api/voe";
 import SearchInput from "./SearchInput";
+import "./SearchInput.module.css";
 
 const SearchStreetInput = ({ value, onSelected }) => {
   const searchStreet = async (term) => {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import SearchInputDropdown from "./SearchInputDropdown";
-import "./SearchInput.css";
+import styles from "./SearchInput.module.css";
 
 const SearchInput = ({ placeholder, value, onSearch, onSelected }) => {
   const [searchResult, setSearchResult] = useState(null);
@@ -47,7 +47,7 @@ const SearchInput = ({ placeholder, value, onSearch, onSelected }) => {
   };
 
   return (
-    <div className="search-input">
+    <div className={styles.container}>
       <input
         type="text"
         placeholder={placeholder}
