@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import useSchedule from "../hooks/useSchedule";
-import "./App.css";
+import styles from "./App.module.css";
 import SearchHouseInput from "./SearchHouseInput";
 import SearchStreetInput from "./SearchStreetInput";
 import { useCookies } from "react-cookie";
 import FadeLoader from "react-spinners/FadeLoader";
 import Favorites from "./Favorites";
 import CurrentAddress from "./CurrentAddress";
+import ExternalScheduleTable from "./ExternalScheduleTable";
 
 const spinnerCssOverride = {
   display: "block",
@@ -81,17 +82,17 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <div className="page-title">
+    <div className={styles.appContainer}>
+      <div className={styles.title}>
         Онлайн графік погодинних відключень м.Вінниця
       </div>
-      <div className="site-main-container">
+      <div className={styles.mainContentContainer}>
         <div style={{ display: "none" }}>
           Історія пошуку:
           {addressHistory.map((address) => (
             <div
               key={`${address.street.id}-${address.house.id}`}
-              className="queue-number"
+              className={styles.queueNumber}
               onClick={() => onAddressSelected(address)}
             >
               {address.street.name + address.house.name}
@@ -102,14 +103,14 @@ function App() {
           favorites={cookies.favorites}
           onAddressSelected={onAddressSelected}
         />
-        <div className="custom-fields-wrapper">
-          <div className="field-container">
+        <div className={styles.fieldsWrapper}>
+          <div className={styles.fieldContainer}>
             <SearchStreetInput
               value={selectedStreet ? selectedStreet.name : ""}
               onSelected={onStreetSelected}
             />
           </div>
-          <div className="field-container">
+          <div className={styles.fieldContainer}>
             <SearchHouseInput
               streetId={selectedStreet && selectedStreet.id}
               value={selectedHouse ? selectedHouse.name : ""}
@@ -135,11 +136,8 @@ function App() {
               onAddToFavorites={onAddToFavorites}
               onRemoveFromFavorites={onRemoveFromFavorites}
             />
-            <div className="queue-number">Номер черги: {queueNumber}</div>
-            <div
-              id="scheduleContainer"
-              dangerouslySetInnerHTML={{ __html: schedule }}
-            ></div>
+            <div className={styles.queueNumber}>Номер черги: {queueNumber}</div>
+            <ExternalScheduleTable schedule={schedule} />
           </>
         )}
       </div>

@@ -8,7 +8,7 @@ const CurrentAddress = ({
   onRemoveFromFavorites,
 }) => {
   return (
-    <div className={styles.currentAddress}>
+    <div className={styles.container}>
       Адреса: {selectedStreet?.name}
       {selectedHouse && (
         <>

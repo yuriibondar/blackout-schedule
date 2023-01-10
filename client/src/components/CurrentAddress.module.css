@@ -1,11 +1,11 @@
 
-.currentAddress {
+.container {
     display: flex;
     background: #EDF2F7;
     padding: 15px 25px;
     font-size: 14px;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
   }
   .favoritesButton {
     margin-left: auto;

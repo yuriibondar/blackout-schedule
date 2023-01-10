@@ -1,55 +1,12 @@
-* {
-  outline: none;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration-skip-ink: none;
-  font-family: 'Exo 2', arial, sans-serif;
-}
-body {
-  color: #283746;
-  font-size: 1rem;
-  line-height: 1.25;
-}
-.app-container {  
-  min-width: 300px;
-}
 .fields_wrapper {
-  display: none;
-}
-
-.site-main-container {
-  padding-left: 25px;
-  padding-right: 25px;
-  max-width: 700px;
-  margin-bottom: 25px;
-}
-
-.custom-fields-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  /* margin-top: 25px;
-  margin-bottom: 25px; */
-  margin: 25px -5px;
-}
-.field-container {
-  width: 50%;
-  padding: 0 5px;
-}
-.queue-number {
-  background: #EDF2F7;
-  padding: 15px 25px;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
+    display: none;
+  }
 .disconnection-detailed-table > p:first-child {
   display: none;
 }
 
 .disconnection-detailed-table-container {
-  grid-template-rows: max-content repeat(24,30px);
+  grid-template-rows: max-content repeat(24, 30px);
   grid-auto-flow: column;
   display: grid;
   gap: 1px;
@@ -63,11 +20,11 @@ body {
   text-transform: capitalize;
 }
 .disconnection-detailed-table-cell.legend.current_day {
-  background: #F25E1D;
+  background: #f25e1d;
   color: #fff;
 }
 .disconnection-detailed-table-cell {
-  background: #F7FAFC;
+  background: #f7fafc;
   text-align: center;
   display: flex;
   align-items: center;
@@ -81,7 +38,7 @@ body {
   padding: 3px;
 }
 .disconnection-detailed-table-cell.grey {
-  background: #EDF2F7;
+  background: #edf2f7;
 }
 .disconnection-detailed-table-cell.head {
   font-size: 12px;
@@ -89,22 +46,22 @@ body {
   padding: 3px;
 }
 /* .disconnection-detailed-table-cell.current_day.has_disconnection {
-  background: #F25E1D;
-} */
+    background: #F25E1D;
+  } */
 .disconnection-detailed-table-cell.has_disconnection.confirm_1 {
-  background: #F25E1D;
+  background: #f25e1d;
 }
 /* .disconnection-detailed-table-cell.current_day {
-  background: #FFE8DE;
-  color: #fff;
-} */
+    background: #FFE8DE;
+    color: #fff;
+  } */
 .disconnection-detailed-table-cell.has_disconnection {
   color: #000;
   /* color: #F25E1D; */
-  background: #E2E8F0;
+  background: #e2e8f0;
 }
 .disconnection-detailed-table-cell {
-  background: #F7FAFC;
+  background: #f7fafc;
   text-align: center;
   display: flex;
   align-items: center;
@@ -121,16 +78,4 @@ body {
 
 .disconnection-detailed-table-cell .disconnection {
   display: none;
-}
-
-.page-title {
-  display: flex;
-  align-items: center;
-  min-height: 70px;
-  padding: 15px 25px;
-  background: #F25E1D;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
 }
