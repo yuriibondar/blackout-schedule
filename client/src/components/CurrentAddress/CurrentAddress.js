@@ -9,10 +9,9 @@ const CurrentAddress = ({
 }) => {
   return (
     <div className={styles.container}>
-      Адреса: {selectedStreet?.name}
-      {selectedHouse && (
-        <>
-          , {selectedHouse?.name}
+      Адреса: {selectedStreet?.name || "<оберіть вулицю>"}, {selectedHouse?.name || "<оберіть будинок>"}
+      {selectedStreet && selectedHouse && (
+        <>          
           {isFavorite ? (
             <span
               className={`${styles.favoritesRemove} ${styles.favoritesButton}`}
