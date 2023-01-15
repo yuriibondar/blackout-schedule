@@ -21,7 +21,6 @@ const useSchedule = () => {
             "_wrapper_format": "drupal_ajax"
         }
       });
-      console.log("result - ", result);
       setIsLoading(false);
       setSchedule(result.data[3].data);
     };

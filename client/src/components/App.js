@@ -43,13 +43,11 @@ function App() {
   }, [selectedHouse]);
 
   const onStreetSelected = (id, name) => {
-    console.log("selectedId", id, "selectedName", name);
     setSelectedStreet({ id, name });
     setSelectedHouse(null);
     resetSchedule();
   };
   const onHouseSelected = (id, name) => {
-    console.log("selectedHouseId", id, "selectedHouseName", name);
     setSelectedHouse({ id, name });
   };
 
@@ -90,9 +88,7 @@ function App() {
       <div className={styles.mainContentContainer}>
         <div style={{ display: "none" }}>
           Історія пошуку:
-          {addressHistory.map((address, index) => {
-            console.log('history item: ', `${index}-${address.street.id}-${address.house.id}`)
-            return (
+          {addressHistory.map((address, index) => (
             <div
               key={`${index}-${address.street.id}-${address.house.id}`}
               className={styles.queueNumber}
@@ -100,7 +96,7 @@ function App() {
             >
               {address.street.name + address.house.name}
             </div>
-          )})}
+          ))}
         </div>
         <Favorites
           favorites={cookies.favorites}
