@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import useSchedule from "../hooks/useSchedule";
 import styles from "./App.module.css";
-import SearchHouseInput from "./SearchHouseInput";
-import SearchStreetInput from "./SearchStreetInput";
+import SearchHouseInput from "./SearchInput/SearchHouseInput";
+import SearchStreetInput from "./SearchInput/SearchStreetInput";
 import { useCookies } from "react-cookie";
 import FadeLoader from "react-spinners/FadeLoader";
-import Favorites from "./Favorites";
-import CurrentAddress from "./CurrentAddress";
-import ExternalScheduleTable from "./ExternalScheduleTable";
+import Favorites from "./Favorites/Favorites";
+import CurrentAddress from "./CurrentAddress/CurrentAddress";
+import ExternalScheduleTable from "./ExternalScheduleTable/ExternalScheduleTable";
 
 const spinnerCssOverride = {
   display: "block",
@@ -16,7 +16,7 @@ const spinnerCssOverride = {
 };
 
 function App() {
-  const [schedule, fetchSchedule, isLoading] = useSchedule(null);
+  const [schedule, fetchSchedule, resetSchedule, isLoading] = useSchedule(null);
   const [queueNumber, setQueueNumber] = useState(null);
   const [selectedStreet, setSelectedStreet] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null);
@@ -46,6 +46,7 @@ function App() {
     console.log("selectedId", id, "selectedName", name);
     setSelectedStreet({ id, name });
     setSelectedHouse(null);
+    resetSchedule();
   };
   const onHouseSelected = (id, name) => {
     console.log("selectedHouseId", id, "selectedHouseName", name);
@@ -89,15 +90,17 @@ function App() {
       <div className={styles.mainContentContainer}>
         <div style={{ display: "none" }}>
           Історія пошуку:
-          {addressHistory.map((address) => (
+          {addressHistory.map((address, index) => {
+            console.log('history item: ', `${index}-${address.street.id}-${address.house.id}`)
+            return (
             <div
-              key={`${address.street.id}-${address.house.id}`}
+              key={`${index}-${address.street.id}-${address.house.id}`}
               className={styles.queueNumber}
               onClick={() => onAddressSelected(address)}
             >
               {address.street.name + address.house.name}
             </div>
-          ))}
+          )})}
         </div>
         <Favorites
           favorites={cookies.favorites}
@@ -128,6 +131,8 @@ function App() {
             <CurrentAddress
               isFavorite={cookies.favorites?.some(
                 (addr) =>
+                  selectedStreet &&
+                  selectedHouse &&
                   addr.street.id === selectedStreet.id &&
                   addr.house.id === selectedHouse.id
               )}

@@ -1,4 +1,4 @@
-import useOutsideClick from "../hooks/useOutsideClick";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import styles from "./SearchInput.module.css";
 
 const SearchInputDropdown = ({ searchResult, onSelected, onClickOutside }) => {

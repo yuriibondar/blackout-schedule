@@ -1,4 +1,4 @@
-import voe from "../api/voe";
+import voe from "../../api/voe";
 import SearchInput from "./SearchInput";
 import "./SearchInput.module.css";
 

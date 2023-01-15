@@ -25,8 +25,12 @@ const useSchedule = () => {
       setIsLoading(false);
       setSchedule(result.data[3].data);
     };
+
+    const resetSchedule = () => {
+      setSchedule(null);
+    }
   
-    return [schedule, fetchSchedule, isLoading];
+    return [schedule, fetchSchedule, resetSchedule, isLoading];
   };
   
   export default useSchedule;
