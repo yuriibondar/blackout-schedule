@@ -35,7 +35,7 @@ app.post('/api', (req, res) => {
         }
     })
     .then(response => {
-        res.send(response.data);
+        res.status(response.status).send(response.data);
     })
     .catch(error => {
         console.log("API Error:", error);
@@ -50,7 +50,7 @@ app.get('/api/street/:cityId', (req, res) => {
         }
     })
     .then(response => {
-        res.send(response.data);
+        res.status(response.status).send(response.data);
     })
     .catch(error => {
         res.status(500).send(error.message);
@@ -64,7 +64,7 @@ app.get('/api/house/:streetId', (req, res) => {
         }
     })
     .then(response => {
-        res.send(response.data);
+        res.status(response.status).send(response.data);
     })
     .catch(error => {
         res.status(500).send(error.message);
