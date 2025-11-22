@@ -143,7 +143,7 @@ function App() {
           </>
         )}
       </div>
-      <Analytics />
+      <Analytics mode="development"/>
     </div>
   );
 }
