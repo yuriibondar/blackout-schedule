@@ -8,7 +8,6 @@ import FadeLoader from "react-spinners/FadeLoader";
 import Favorites from "./Favorites/Favorites";
 import CurrentAddress from "./CurrentAddress/CurrentAddress";
 import ExternalScheduleTable from "./ExternalScheduleTable/ExternalScheduleTable";
-import { Analytics } from "@vercel/analytics/react"
 
 const spinnerCssOverride = {
   display: "block",
@@ -143,7 +142,6 @@ function App() {
           </>
         )}
       </div>
-      <Analytics mode="development"/>
     </div>
   );
 }
