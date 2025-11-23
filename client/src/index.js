@@ -10,7 +10,7 @@ root.render(
   <CookiesProvider>
     <React.StrictMode>
       <App />      
-      <Analytics mode="development"/>
+      <Analytics/>
     </React.StrictMode>
   </CookiesProvider>
 );
