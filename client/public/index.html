@@ -10,6 +10,7 @@
       name="description"
       content="Онлайн графік погодинних відключень м.Вінниця"
     />
+    <meta property="og:site_name" content="Графік відключень Вінниця" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.svg" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -41,6 +42,15 @@
       gtag('js', new Date());
 
       gtag('config', 'G-4XN5C0F5ZE');
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Графік відключень Вінниця",
+        "alternateName": ["Blackout Schedule Vinnytsia", "Вінниця Обленерго Графік"],
+        "url": "https://blackout-schedule.vercel.app/"
+      }
     </script>
   </head>
   <body>
